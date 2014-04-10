@@ -1,18 +1,15 @@
-// var $ = require('jquery');
+var $ = require('jquery');
 
-console.log($);
+Compass = function() {
+  
+};
 
-var $image = $(new CustomImage());
+
+
+var $image = $(new Image());
 $image
   .load(function() {
     $('#compassImage').append($image);
     $image.attr('width', '500');
   })
   .attr('src', '/img/compass.png');
-
-
-
-//=== Image
-var CustomImage = function() {
-
-};
