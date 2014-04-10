@@ -1,23 +1,7 @@
 var $ = require('jquery');
 
-rotate = function(id, angle) {
-  new jQueryImage(id).rotate(angle);
-}
 
-jQueryImage = function(id) {
-  this.id = "#" + id;
-};
-
-jQueryImage.prototype.rotate = function(angle) {
-  $(this.id).css("transform", "rotate(90deg)");
-};
-
-
-
-
-
-
-CompassRotatedByValue = function( selector ) {
+CompassRotatedByValue = function( selector, textSelector ) {
   this.cardinalPoints = [
     [0,     "North"], 
     [22.5,  "North Northwest"],
@@ -39,11 +23,12 @@ CompassRotatedByValue = function( selector ) {
 
   this.ValueToDegreeRatio = 4;
   this.selector = selector;
+  this.textSelector = textSelector;
 };
 
 CompassRotatedByValue.prototype = {
   convertAngleToCardinalPoint: function(angle) {
-    while(angle > 360) {
+    while(angle >= 360) {
       angle -= 360;
     }
     
@@ -57,16 +42,27 @@ CompassRotatedByValue.prototype = {
   },
 
   convertValueToDegree: function(value) {
-    return value/this.ValueToDegreeRatio + "deg";
+    var degree = value/this.ValueToDegreeRatio;
+
+    degree = Math.round( degree*2 )
+    degree /=2
+    degree.toFixed(1); 
+
+    return degree;
   },
 
   rotateByValue: function(value) {
     var degree = this.convertValueToDegree(value);
-    this._getElement.css("transform", "rotate(" + degree + ")");
+    var directionText = this.convertAngleToCardinalPoint(degree);
+    this._rotate(degree);
+    this._setDirectionText(directionText);
   },
 
-  _getElement: function() {
-    return $(this.selector);
+  _rotate: function(degree) {
+    $(this.selector).css("transform", "rotate(" + degree + "deg)");
+  },
+  _setDirectionText: function(directionText) {
+    $(this.textSelector).html(directionText);
   }
 };
 
@@ -76,7 +72,13 @@ CompassRotatedByValue.prototype = {
 var $image = $(new Image());
 $image
   .load(function() {
-    $('#compass').append($image);
+    $('#compassImage').append($image);
     $image.attr('width', '500');
   })
   .attr('src', '/img/compass.png');
+
+comp = new CompassRotatedByValue( "#compassImage", "#directionHeading" );
+
+window.onscroll = function() {
+  comp.rotateByValue( $(window).scrollTop() );
+}
