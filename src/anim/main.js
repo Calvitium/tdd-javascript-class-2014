@@ -1,9 +1,13 @@
-var jQuery = require('jquery');
+var $ = require('jquery');
 
-var imageEl = jQuery(new Image());
-imageEl
+var $image = $(new Image());
+$image
   .load(function() {
-    jQuery('#compassImage').append(imageEl);
-    imageEl.attr('width', '500');
+    $('#compassImage').append($image);
+    $image.attr('width', '500');
   })
   .attr('src', '/img/compass.png');
+
+
+
+//=== Image
