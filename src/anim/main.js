@@ -48,6 +48,11 @@ convertAngleToCardinalPoint = function(angle) {
 };
 
 
+convertPixelToDegree = function(pixel) {
+  pixelToDegreeRatio = 4;
+  return pixel/pixelToDegreeRatio;
+};
+
 
 var $image = $(new Image());
 $image

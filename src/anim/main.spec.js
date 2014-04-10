@@ -34,5 +34,16 @@ describe("Compass -", function() {
 
   });
 
+  describe("pixel to angle converter", function() {
+    it("should convert 4 pixels to 1 degree", function() {
+      expect(convertPixelToDegree(4)).toEqual(1);
+    });
+    it("should convert 16 pixels to 4 degree", function() {
+      expect(convertPixelToDegree(16)).toEqual(4);
+    });
+    it("should convert 245 pixels to 61.25 degree", function() {
+      expect(convertPixelToDegree(245)).toEqual(61.25);
+    });
+  });
 
 });
