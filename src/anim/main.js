@@ -1,6 +1,8 @@
-var $ = require('jquery');
+// var $ = require('jquery');
 
-var $image = $(new Image());
+console.log($);
+
+var $image = $(new CustomImage());
 $image
   .load(function() {
     $('#compassImage').append($image);
@@ -11,3 +13,6 @@ $image
 
 
 //=== Image
+var CustomImage = function() {
+
+};
