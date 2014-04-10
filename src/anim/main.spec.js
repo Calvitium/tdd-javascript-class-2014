@@ -40,14 +40,14 @@ describe("Compass -", function() {
     });
 
     describe("pixel to angle converter", function() {
-      it("should convert 4 pixels to 1 degree", function() {
-        expect(this.compass.convertPixelToDegree(4)).toEqual(1);
+      it("should convert 4 to 1deg", function() {
+        expect(this.compass.convertValueToDegree(4)).toEqual("1deg");
       });
-      it("should convert 16 pixels to 4 degree", function() {
-        expect(this.compass.convertPixelToDegree(16)).toEqual(4);
+      it("should convert 16 to 4deg", function() {
+        expect(this.compass.convertValueToDegree(16)).toEqual("4deg");
       });
-      it("should convert 245 pixels to 61.25 degree", function() {
-        expect(this.compass.convertPixelToDegree(245)).toEqual(61.25);
+      it("should convert 245 to 61.25deg", function() {
+        expect(this.compass.convertValueToDegree(245)).toEqual("61.25deg");
       });
     });
 
