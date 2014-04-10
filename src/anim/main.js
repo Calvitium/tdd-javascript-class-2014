@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
-Compass = function() {
-  
+Compass = function(id) {
+  this.id = "#" + id;
 };
 
 
