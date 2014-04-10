@@ -12,6 +12,12 @@ jQueryImage.prototype.rotate = function(angle) {
   $(this.id).css("transform", "rotate(90)");
 };
 
+convertAngleToCardinalPoint = function(angle) {
+
+  return "North";
+
+};
+
 
 
 var $image = $(new Image());
