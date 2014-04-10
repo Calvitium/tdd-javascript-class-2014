@@ -24,6 +24,7 @@ CompassRotatedByValue = function( selector, textSelector ) {
   this.ValueToDegreeRatio = 4;
   this.selector = selector;
   this.textSelector = textSelector;
+  this.rotateByValue(0);
 };
 
 CompassRotatedByValue.prototype = {
@@ -45,7 +46,7 @@ CompassRotatedByValue.prototype = {
     var degree = value/this.ValueToDegreeRatio;
 
     degree = Math.round( degree*2 )
-    degree /=2
+    degree /= 2
     degree.toFixed(1); 
 
     return degree;
@@ -77,8 +78,10 @@ $image
   })
   .attr('src', '/img/compass.png');
 
-comp = new CompassRotatedByValue( "#compassImage", "#directionHeading" );
+$(function() {
+  comp = new CompassRotatedByValue( "#compassImage", "#directionHeading" );
 
-window.onscroll = function() {
-  comp.rotateByValue( $(window).scrollTop() );
-}
+  window.onscroll = function() {
+    comp.rotateByValue( $(window).scrollTop() );
+  }
+});

@@ -9,6 +9,14 @@ describe("Compass -", function() {
       this.compass = new CompassRotatedByValue( "#compass", "#directionHeading" );
     });
 
+    it("should set init position/text", function() {
+      spyOn(CompassRotatedByValue.prototype, "_rotate")
+      spyOn(CompassRotatedByValue.prototype, "_setDirectionText")
+      new CompassRotatedByValue();
+      expect(CompassRotatedByValue.prototype._rotate).toHaveBeenCalled();
+      expect(CompassRotatedByValue.prototype._setDirectionText).toHaveBeenCalled();
+    });
+    
     describe("angle to direction (text)", function() {
       it("should convert 0 to North", function() {
         expect(this.compass.convertAngleToCardinalPoint(0)).toEqual("North");
