@@ -2,7 +2,7 @@ var $ = require('jquery');
 
 rotate = function(id, angle) {
   new jQueryImage(id).rotate(angle);
-};
+}
 
 jQueryImage = function(id) {
   this.id = "#" + id;
@@ -12,9 +12,13 @@ jQueryImage.prototype.rotate = function(angle) {
   $(this.id).css("transform", "rotate(90deg)");
 };
 
-convertAngleToCardinalPoint = function(angle) {
 
-  var cardinalPoints = [
+
+
+
+
+CompassRotatedByValue = function( id ) {
+  this.cardinalPoints = [
     [0,     "North"], 
     [22.5,  "North Northwest"],
     [45,    "Northwest"],
@@ -33,31 +37,39 @@ convertAngleToCardinalPoint = function(angle) {
     [337.5, "North Northeast"]
   ];
 
+  this.ValueToDegreeRatio = 4;
+  this.id = id;
+};
+
+CompassRotatedByValue.prototype.convertAngleToCardinalPoint = function(angle) {
   while(angle > 360) {
     angle -= 360;
   }
   
-  for(var i = 0; i < cardinalPoints.length; i++) {
-    if(cardinalPoints[i][0] == angle) {
-      return cardinalPoints[i][1];
+  for(var i = 0; i < this.cardinalPoints.length; i++) {
+    if(this.cardinalPoints[i][0] == angle) {
+      return this.cardinalPoints[i][1];
     }
   }
 
   return angle + "°";
+};
 
+CompassRotatedByValue.prototype.convertPixelToDegree = function(value) {
+  return value/this.ValueToDegreeRatio;
+};
+
+CompassRotatedByValue.prototype.rotateByValue = function(value) {
+  
 };
 
 
-convertPixelToDegree = function(pixel) {
-  pixelToDegreeRatio = 4;
-  return pixel/pixelToDegreeRatio;
-};
 
 
 var $image = $(new Image());
 $image
   .load(function() {
-    $('#compassImage').append($image);
+    $('#compass').append($image);
     $image.attr('width', '500');
   })
   .attr('src', '/img/compass.png');

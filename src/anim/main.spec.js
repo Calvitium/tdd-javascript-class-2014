@@ -15,35 +15,51 @@ describe("Compass -", function() {
     expect(jQueryImage.prototype.rotate).toHaveBeenCalledWith(90);
   });
 
-  describe("angle to direction (text)", function() {
-    it("should convert 0 to North", function() {
-      expect(convertAngleToCardinalPoint(0)).toEqual("North");
+  describe("CompassRotatedByValue", function() {
+    beforeEach(function() {
+      this.compass = new CompassRotatedByValue( "compass" );
     });
 
-    it("should convert 90 to West", function() {
-      expect(convertAngleToCardinalPoint(90)).toEqual("West");
+    describe("angle to direction (text)", function() {
+      it("should convert 0 to North", function() {
+        expect(this.compass.convertAngleToCardinalPoint(0)).toEqual("North");
+      });
+
+      it("should convert 90 to West", function() {
+        expect(this.compass.convertAngleToCardinalPoint(90)).toEqual("West");
+      });
+
+      it("should convert 51 to 51", function() {
+        expect(this.compass.convertAngleToCardinalPoint(51)).toEqual("51°");
+      });
+
+      it("should convert 382.5 to North Northwest", function() {
+        expect(this.compass.convertAngleToCardinalPoint(382.5)).toEqual("North Northwest");
+      });
+
     });
 
-    it("should convert 51 to 51", function() {
-      expect(convertAngleToCardinalPoint(51)).toEqual("51°");
+    describe("pixel to angle converter", function() {
+      it("should convert 4 pixels to 1 degree", function() {
+        expect(this.compass.convertPixelToDegree(4)).toEqual(1);
+      });
+      it("should convert 16 pixels to 4 degree", function() {
+        expect(this.compass.convertPixelToDegree(16)).toEqual(4);
+      });
+      it("should convert 245 pixels to 61.25 degree", function() {
+        expect(this.compass.convertPixelToDegree(245)).toEqual(61.25);
+      });
     });
 
-    it("should convert 382.5 to North Northwest", function() {
-      expect(convertAngleToCardinalPoint(382.5)).toEqual("North Northwest");
-    });
+    it("should rotate by value", function() {
+      spyOn(this.compass, "rotateByValue");
 
+      this.compass.rotateByValue(512);
+
+      expect(this.compass.rotateByValue).toHaveBeenCalledWith(512);
+    });
   });
 
-  describe("pixel to angle converter", function() {
-    it("should convert 4 pixels to 1 degree", function() {
-      expect(convertPixelToDegree(4)).toEqual(1);
-    });
-    it("should convert 16 pixels to 4 degree", function() {
-      expect(convertPixelToDegree(16)).toEqual(4);
-    });
-    it("should convert 245 pixels to 61.25 degree", function() {
-      expect(convertPixelToDegree(245)).toEqual(61.25);
-    });
-  });
+
 
 });
