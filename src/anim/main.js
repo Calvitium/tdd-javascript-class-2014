@@ -1,7 +1,15 @@
 var $ = require('jquery');
 
-Compass = function(id) {
+rotate = function(id, angle) {
+  new jQueryImage(id).rotate(angle);
+};
+
+jQueryImage = function(id) {
   this.id = "#" + id;
+};
+
+jQueryImage.prototype.rotate = function(angle) {
+  $(this.id).css("transform", "rotate(90)");
 };
 
 
