@@ -7,4 +7,5 @@ Install globally:
 * karma-browserify
 
 cd /tdd-javascript-class-2014/src/anim/
+
 karma start
